@@ -1,9 +1,34 @@
-import { Client } from "discord.js";
+// import { Client } from "discord.js";
+// import 'dotenv/config';
 
-const client = new Client({});
+require('dotenv').config();
+const { 
+    Client,
+    Collection,
+    Events,
+    GatewayIntentBits,
+} = require('discord.js');
 
-client.on('ready', () => {
-    console.log("Logged in!")
+const { clientReadyHandler } = require('./events/clientReady');
+const { interactionCreateHandler } = require('./events/interactionCreate');
+
+const pingCommand = require('./commands/ping');
+const forecastCommand = require('./commands/forecast');
+const astroCommand = require('./commands/astro');
+
+
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+    ]
 });
 
-client.login();
+client.commands = new Collection();
+client.commands.set(pingCommand.data.name, pingCommand);
+client.commands.set(forecastCommand.data.name, forecastCommand);
+client.commands.set(astroCommand.data.name, astroCommand);
+
+client.once(Events.ClientReady, clientReadyHandler);
+client.on(Events.InteractionCreate, interactionCreateHandler);
+
+client.login(process.env.DISCORD_TOKEN);
