@@ -1,4 +1,4 @@
-<center><h1>Weather-Astro Discord Bot</h1></center>
+# Weather-Astro Discord Bot
 ## A Nodejs script that can provide a user weather forecast and astronomical data
 
 
