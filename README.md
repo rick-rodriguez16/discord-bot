@@ -8,8 +8,8 @@ Being a fervent user of the discord app on desktop and mobile, I wanted to learn
 
 ### Examples
 
-Using the /forecast command
+**Using the /forecast command** :partly_sunny:
 ![Forecast image](assets/forecast.png)
 
-Using the /astro command
+**Using the /astro command** :sunrise:
 ![Astronomical image](assets/astro.png)
