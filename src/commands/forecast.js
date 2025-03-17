@@ -17,11 +17,11 @@ const data = new SlashCommandBuilder()
     .addStringOption(option => {
         return option
             .setName('units')
-            .setDescription('The unit systems of temp: either "metric (°C)" or "imperial (°F)"')
+            .setDescription('The unit systems of temp: either "degrees Celcius" (metric) or "degrees Farenheit" (imperial)."')
             .setRequired(false)
             .addChoices(
-                { name: 'Metric', value: 'metric' },
-                { name: 'Imperial', value: 'imperial' },
+                { name: '°C - degrees Celsius (metric units)', value: 'Celsius' },
+                { name: '°F - degrees Farenheit (imperial units)', value: 'Farenheit' },
             );
     });
 
@@ -29,23 +29,23 @@ async function execute(interaction) {
     await interaction.deferReply();
     
     const location = interaction.options.getString('location');
-    const units = interaction.options.getString('units') || 'imperial';
-    const isImperial = units === 'imperial';
+    const units = interaction.options.getString('units') || 'Farenheit';
+    const isImperial = units === 'Farenheit';
 
     try {
         const { weatherData, locationName } = await fetchForecast(location);
         const embed = new EmbedBuilder()
         .setColor(0x3f784d)
         .setTitle(`Weather forecast for ${locationName}...`)
-        .setDescription(`Using ${units}`)
+        .setDescription(`Using degrees ${units}.`)
         .setTimestamp()
         .setFooter({
             text: 'Powered by weatherapi.com API',
         });
 
         for (const day of weatherData) {
-            const tempMin = isImperial == 'imperial' ? day.temperatureMinF : day.temperatureMinC;
-            const tempMax = isImperial == 'imperial' ? day.temperatureMaxF : day.temperatureMaxC;
+            const tempMin = isImperial ? day.temperatureMinF : day.temperatureMinC;
+            const tempMax = isImperial ? day.temperatureMaxF : day.temperatureMaxC;
 
             embed.addFields({
                 name: day.date,
