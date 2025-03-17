@@ -10,3 +10,6 @@ Being a fervent user of the discord app on desktop and mobile, I wanted to learn
 
 Using the /forecast command
 ![Forecast image](assets/forecast.png)
+
+Using the /astro command
+![Astronomical image](assets/astro.png)
